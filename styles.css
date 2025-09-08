@@ -1,26 +1,42 @@
-/* charity: water Brand Colors & Fonts
+/* --- Global CSS Reset --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-Primary Colors:
-- Yellow:     #FFC907
-- Blue:       #2E9DF7
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: "Avenir", "Nunito Sans", "Montserrat", Arial, sans-serif;
+  color: white;
+  background: #000; /* fallback color behind images */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-Secondary Colors:
-- Light Blue: #8BD1CB
-- Green:      #4FCB53
-- Orange:     #FF902A
-- Red:        #F5402C
-- Dark Green: #159A48
-- Pink:       #F16061
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
 
-Fonts:
-- Proxima Nova
-- Avenir
+button {
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
 
-*/
+ul, ol {
+  list-style: none;
+}
 
-/* 
-  Charity: Water Landing Page Styles
-  This CSS uses the provided color palette and beginner-friendly styles.
+a {
+  color: inherit;
+  text-decoration: none;
+}
 */
 
 /* Set up the main font and background color for the whole page */
@@ -29,14 +45,20 @@ body {
   font-family: "Montserrat", Arial, sans-serif;
   color: white;
 }
+html, body {
+  margin: 0;      /* remove default margins */
+  padding: 0;     /* remove default padding */
+  height: 100%;   /* allow full-height sections */
+}
 
 /* Add a slight shadow and rounded corners to each section for depth */
 section {
-  background: #fff; /* White background for sections */
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0 2px 8px rgba(46, 157, 247, 0.07); /* Soft blue shadow */
-  margin: 24px 10px; /* Space between sections */
+  /* Remove the global white background from ALL sections */
+section {
+  margin: 0;
   padding: 24px 16px;
+  border-radius: 12px;
+}
 }
 
 /* Header */
@@ -48,10 +70,39 @@ header {
   padding: 12px 24px;
 }
 
+header {
+  position: fixed;   /* keeps header at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #88b6c7;
+  padding: 12px 24px;
+  z-index: 1000;     /* ensures it stays above other content */
+  transform: none;   /* no sliding, always visible */
+  transition: none;  /* remove animation */
+}
+
+
+
+.header-content {
+  display: flex;
+  justify-content: space-between; /* logo left, button right */
+  align-items: center;
+  padding: 12px 0;
+}
+
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between image and text */
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
+}
+
+.logo img {
+  height: 30px; /* adjust size as needed */
+  width: auto;
 }
 
 .give-btn {
@@ -70,14 +121,15 @@ header {
 /* Hero Section */
 .hero {
   position: relative;
-  background: url('https://dpmk.in/i/y9c2r3vKzY') 
-    center center/cover no-repeat;
-  height: 100vh;
+  background: url('img/Madagascar_2019_CG-4246.jpg') center center/cover no-repeat;
+  height: 100vh;      /* full screen height */
+  width: 100%;        /* full screen width */
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 0 40px;
 }
+
 
 .overlay {
   position: absolute;
@@ -92,50 +144,58 @@ header {
   position: relative;
   max-width: 500px;
   z-index: 1;
+  text-align: left;       /* keep left aligned */
+  display: flex;
+  flex-direction: column; /* stack text + button vertically */
+  gap: 20px;              /* space between elements */
 }
 
 .hero h1 {
   font-size: 2.5rem;
-  margin: 0 0 20px;
+  margin: 0;
   line-height: 1.2;
+  font-weight: 700;
 }
 
 .hero p {
   font-size: 1rem;
   line-height: 1.5;
-  margin-bottom: 30px;
+  margin: 0;
+  font-weight: 400;
 }
 
 .cta-btn {
   background-color: #fcd12a;
   border: none;
   padding: 14px 28px;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
   border-radius: 6px;
+  align-self: flex-start; /* keep button aligned with text */
 }
 
 .cta-btn:hover {
   background-color: #e5b91f;
 }
 
-@media (max-width: 992px) {
-  .hero {
-    padding: 30px;
-    text-align: center;
-    justify-content: center;
-  }
-
+/* Responsive */
+@media (max-width: 600px) {
   .hero-content {
-    max-width: 80%;
+    max-width: 95%;
+    gap: 16px;
   }
 
   .hero h1 {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
   }
-    .hero p {
+
+  .hero p {
     font-size: 0.95rem;
+  }
+
+  .cta-btn {
+    align-self: flex-start; /* stays under text on mobile */
   }
 }
 
@@ -148,7 +208,7 @@ header {
 
   .hero {
     padding: 20px;
-    text-align: center;
+    text-align: left;
     justify-content: center;
   }
 
@@ -167,4 +227,34 @@ header {
   .cta-btn {
     width: 100%;
   }
+}
+/* --- Container System --- */
+.container {
+  width: 100%;
+  max-width: 1200px;  /* keeps content from stretching too wide */
+  margin: 0 auto;     /* center horizontally */
+  padding: 0 20px;    /* side padding for breathing room */
+}
+
+/* Adjust for tablets */
+@media (max-width: 992px) {
+  .container {
+    max-width: 90%;
+    padding: 0 16px;
+  }
+}
+
+/* Adjust for mobile */
+@media (max-width: 600px) {
+  .container {
+    max-width: 100%;
+    padding: 0 12px;
+  }
+}
+.container--wide {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-left: 0; /* flush left */
 }
